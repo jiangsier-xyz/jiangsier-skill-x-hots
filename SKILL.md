@@ -1,6 +1,6 @@
 ---
 name: x-hots
-version: 1.4.0
+version: 1.4.1
 description: Fetch trending topics from X (Twitter). Analyze user interests from natural language, retrieve top hot topics per domain, and summarize background, key opinions, and controversies.
 ---
 
