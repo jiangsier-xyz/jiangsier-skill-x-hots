@@ -13,10 +13,10 @@ The skill is designed to be driven by an OpenClaw agent: the agent analyzes the 
 The script takes a single JSON-array argument of search keywords and prints JSON to stdout:
 
 ```bash
-python3 scripts/x_hots.py '["AI", "LLM", "stock market"]'
+scripts/x_hots '["AI", "LLM", "stock market"]'
 ```
 
-Prerequisites: Python 3.7+ and `tweepy` (`pip3 install tweepy`). The only required credential is `X_BEARER_TOKEN` (app-only OAuth 2.0), exported in the shell environment. There is no build step, no test suite, and no lint configuration in this repo.
+Prerequisites: Python 3.7+ and `tweepy` — both installed automatically into an isolated `.venv/` by the `scripts/x_hots` wrapper on first run (no manual `pip install`). The only required credential is `X_BEARER_TOKEN` (app-only OAuth 2.0), exported in the shell environment. There is no build step, no test suite, and no lint configuration in this repo.
 
 Each keyword query returns up to 10 tweets (default `max_results_per_query=10`), filtered to original non-retweet English tweets (`-is:retweet lang:en`), sorted by relevancy.
 

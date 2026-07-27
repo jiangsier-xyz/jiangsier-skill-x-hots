@@ -21,7 +21,9 @@ The skill is driven by an OpenClaw agent: it analyzes your natural-language inpu
 ```
 x-hots/
 ├── SKILL.md            # Skill definition + the full agent workflow (the contract)
+├── requirements.txt    # tweepy (auto-installed by the wrapper)
 ├── scripts/
+│   ├── x_hots          # venv entrypoint wrapper (provisions .venv, runs x_hots.py)
 │   └── x_hots.py       # Data-fetching implementation (Tweepy / X API v2)
 ├── LICENSE             # MIT
 └── README.md
@@ -35,11 +37,7 @@ x-hots/
 - **[tweepy](https://docs.tweepy.org/)** library
 - An **X API Bearer Token** (app-only OAuth 2.0 — sufficient for `search_recent_tweets`)
 
-Install tweepy:
-
-```bash
-pip3 install tweepy
-```
+Both are installed automatically: the `scripts/x_hots` entrypoint wrapper creates an isolated virtualenv at `.venv/` on first run and installs `requirements.txt` (which pins `tweepy`) into it. No manual `pip install` is needed. Override the venv location with `SKILL_VENV_DIR=<path>`.
 
 Export your bearer token (obtain it from the [X Developer Portal](https://developer.twitter.com/en/portal/dashboard)):
 
@@ -55,13 +53,13 @@ Run the script with a JSON array of search keywords. Each keyword returns up to 
 
 ```bash
 # Tech + Economy
-python3 scripts/x_hots.py '["AI", "LLM", "stock market", "tariff"]'
+scripts/x_hots '["AI", "LLM", "stock market", "tariff"]'
 
 # International politics
-python3 scripts/x_hots.py '["geopolitics", "diplomacy", "sanctions"]'
+scripts/x_hots '["geopolitics", "diplomacy", "sanctions"]'
 
 # Generic hot topics (no specific domain)
-python3 scripts/x_hots.py '["trending", "breaking", "viral", "news"]'
+scripts/x_hots '["trending", "breaking", "viral", "news"]'
 ```
 
 ### Output Format

@@ -1,6 +1,6 @@
 ---
 name: x-hots
-version: 1.4.1
+version: 1.5.1
 description: Fetch trending topics from X (Twitter). Analyze user interests from natural language, retrieve top hot topics per domain, and summarize background, key opinions, and controversies.
 ---
 
@@ -15,10 +15,7 @@ Fetch real-time trending topics from X, filter by user interest domains, and ana
 - **Python 3.7+**
 - **tweepy** library
 
-Install tweepy:
-```bash
-pip3 install tweepy
-```
+Both are handled automatically: the `scripts/x_hots` entrypoint wrapper creates an isolated virtualenv at `<skill_dir>/.venv` on first run and installs `requirements.txt` (which pins `tweepy`) into it. No manual `pip install` is needed. Override the venv location with `SKILL_VENV_DIR=<path>`.
 
 ### Environment Variables
 
@@ -60,7 +57,7 @@ Extract interest domains from the user's natural language input. Common domains 
 ### Step 2: Run the Script to Fetch Hot Tweets
 
 ```bash
-python3 scripts/x_hots.py '<json_queries>'
+scripts/x_hots '<json_queries>'
 ```
 
 **Parameters**:
@@ -70,13 +67,13 @@ python3 scripts/x_hots.py '<json_queries>'
 **Examples**:
 ```bash
 # Tech + Economy domains
-python3 scripts/x_hots.py '["AI", "LLM", "stock market", "tariff"]'
+scripts/x_hots '["AI", "LLM", "stock market", "tariff"]'
 
 # International politics
-python3 scripts/x_hots.py '["geopolitics", "diplomacy", "sanctions"]'
+scripts/x_hots '["geopolitics", "diplomacy", "sanctions"]'
 
 # Generic hot topics (when no domain can be identified)
-python3 scripts/x_hots.py '["trending", "breaking", "viral"]'
+scripts/x_hots '["trending", "breaking", "viral"]'
 ```
 
 **Output Format**:
@@ -141,7 +138,7 @@ When the user's input cannot be mapped to a specific domain (e.g., "what's hot o
 
 1. Run the script with generic hot topic queries:
    ```bash
-   python3 scripts/x_hots.py '["trending", "breaking", "viral", "news"]'
+   scripts/x_hots '["trending", "breaking", "viral", "news"]'
    ```
 
 2. Identify the **Top 10 highest-engagement topics** from the returned tweets (based on likes, retweets, replies)
@@ -158,7 +155,7 @@ When the user's input cannot be mapped to a specific domain (e.g., "what's hot o
 
 **Execute**:
 ```bash
-python3 scripts/x_hots.py '["AI", "LLM", "tech"]'
+scripts/x_hots '["AI", "LLM", "tech"]'
 ```
 
 ### Example 2: User Mentions a Specific Topic
@@ -169,7 +166,7 @@ python3 scripts/x_hots.py '["AI", "LLM", "tech"]'
 
 **Execute**:
 ```bash
-python3 scripts/x_hots.py '["tariff", "trade war", "tariff policy"]'
+scripts/x_hots '["tariff", "trade war", "tariff policy"]'
 ```
 
 ### Example 3: No Domain Can Be Identified
@@ -180,7 +177,7 @@ python3 scripts/x_hots.py '["tariff", "trade war", "tariff policy"]'
 
 **Execute**:
 ```bash
-python3 scripts/x_hots.py '["trending", "breaking", "viral", "news"]'
+scripts/x_hots '["trending", "breaking", "viral", "news"]'
 ```
 
 ## Notes

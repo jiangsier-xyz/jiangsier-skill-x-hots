@@ -21,7 +21,9 @@
 ```
 x-hots/
 ├── SKILL.md            # 技能定义 + 完整的智能体工作流（即契约说明）
+├── requirements.txt    # tweepy（由封装脚本自动安装）
 ├── scripts/
+│   ├── x_hots          # venv 入口封装（自动创建 .venv 并运行 x_hots.py）
 │   └── x_hots.py       # 数据抓取实现（基于 Tweepy / X API v2）
 ├── LICENSE             # MIT
 └── README.zh-CN.md
@@ -35,11 +37,7 @@ x-hots/
 - **[tweepy](https://docs.tweepy.org/)** 库
 - 一个 **X API Bearer Token**（应用级 OAuth 2.0，足以调用 `search_recent_tweets`）
 
-安装 tweepy：
-
-```bash
-pip3 install tweepy
-```
+两者均自动安装：`scripts/x_hots` 入口封装脚本会在首次运行时于 `.venv/` 创建隔离虚拟环境，并安装 `requirements.txt`（已固定 `tweepy`）。无需手动 `pip install`。可用 `SKILL_VENV_DIR=<path>` 覆盖 venv 位置。
 
 导出你的 Bearer Token（可在 [X 开发者门户](https://developer.twitter.com/en/portal/dashboard) 获取）：
 
@@ -55,13 +53,13 @@ export X_BEARER_TOKEN="your-token-here"
 
 ```bash
 # 科技 + 经济
-python3 scripts/x_hots.py '["AI", "LLM", "stock market", "tariff"]'
+scripts/x_hots '["AI", "LLM", "stock market", "tariff"]'
 
 # 国际政治
-python3 scripts/x_hots.py '["geopolitics", "diplomacy", "sanctions"]'
+scripts/x_hots '["geopolitics", "diplomacy", "sanctions"]'
 
 # 通用热点（无法识别具体领域时）
-python3 scripts/x_hots.py '["trending", "breaking", "viral", "news"]'
+scripts/x_hots '["trending", "breaking", "viral", "news"]'
 ```
 
 ### 输出格式

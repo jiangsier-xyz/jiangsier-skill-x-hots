@@ -3,6 +3,16 @@
 All notable changes to the **x-hots** skill are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [1.5.1] — 2026-07-27
+
+### Added
+- `scripts/x_hots`: a venv entrypoint wrapper that provisions an isolated `.venv/` on first run and auto-installs `requirements.txt`.
+- `requirements.txt` pinning `tweepy`.
+
+### Changed
+- SKILL.md, README, README.zh-CN, and CLAUDE.md now invoke `scripts/x_hots` instead of `python3 scripts/x_hots.py`; no manual `pip install` needed.
+- Bumped skill version to `1.5.1`.
+
 ## [1.4.1] — 2026-07-20
 
 ### Added
